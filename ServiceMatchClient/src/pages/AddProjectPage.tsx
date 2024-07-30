@@ -1,24 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ProjectModel } from "../models/IProject";
 
-export const AddProjectPage = ({ addProjectSubmit }) => {
+export const AddProjectPage = ({
+  addProject,
+}: {
+  addProject: (project: ProjectModel) => void;
+}) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("B2C");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [price, setPrice] = useState([0, 1000]);
+  const [price, setPrice] = useState("");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [file, setFile] = useState();
+  const [file, setFile] = useState("");
 
   const navigate = useNavigate();
 
   const submitForm = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const newProject = {
+    const newProject: ProjectModel = {
       title,
       type,
       description,
@@ -29,7 +34,7 @@ export const AddProjectPage = ({ addProjectSubmit }) => {
       phoneNumber,
       file,
     };
-    addProjectSubmit(newProject);
+    addProject(newProject);
     toast.success("Project added!");
     return navigate("/companies");
   };
@@ -83,7 +88,7 @@ export const AddProjectPage = ({ addProjectSubmit }) => {
                   name="description"
                   placeholder="Describe your project"
                   value={description}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                   required
                 />
                 <div className="mb-4">
@@ -92,12 +97,12 @@ export const AddProjectPage = ({ addProjectSubmit }) => {
                   </label>
                   <input
                     type="text"
-                    id="title"
-                    name="title"
+                    id="location"
+                    name="location"
                     className="border rounded w-full py-2 px-3 mb-2"
                     placeholder="Awesome Project Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
                     required
                   />
                 </div>
@@ -106,13 +111,13 @@ export const AddProjectPage = ({ addProjectSubmit }) => {
                     Price
                   </label>
                   <input
-                    type="text"
-                    id="title"
-                    name="title"
+                    type="number"
+                    id="price"
+                    name="price"
                     className="border rounded w-full py-2 px-3 mb-2"
                     placeholder="Awesome Project Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                     required
                   />
                 </div>
@@ -122,12 +127,12 @@ export const AddProjectPage = ({ addProjectSubmit }) => {
                   </label>
                   <input
                     type="text"
-                    id="title"
-                    name="title"
+                    id="name"
+                    name="name"
                     className="border rounded w-full py-2 px-3 mb-2"
                     placeholder="Awesome Project Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required
                   />
                 </div>
@@ -136,13 +141,13 @@ export const AddProjectPage = ({ addProjectSubmit }) => {
                     Your phone
                   </label>
                   <input
-                    type="text"
-                    id="title"
-                    name="title"
+                    type="tel"
+                    id="phone"
+                    name="phone"
                     className="border rounded w-full py-2 px-3 mb-2"
                     placeholder="Awesome Project Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
                     required
                   />
                 </div>
@@ -151,15 +156,36 @@ export const AddProjectPage = ({ addProjectSubmit }) => {
                     Your email
                   </label>
                   <input
-                    type="text"
-                    id="title"
-                    name="title"
+                    type="email"
+                    id="email"
+                    name="email"
                     className="border rounded w-full py-2 px-3 mb-2"
                     placeholder="Awesome Project Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
+                </div>
+                <div className="mb-4">
+                  <label className="ml-4 block font-bold mb-2">
+                    Add files
+                    <input
+                      type="file"
+                      className="w-full py-2 mb-2"
+                      id="file"
+                      name="file"
+                      value={file}
+                      onChange={(e) => setFile(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div>
+                  <button
+                    className="bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+                    type="submit"
+                  >
+                    Add project
+                  </button>
                 </div>
               </div>
             </div>
